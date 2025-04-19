@@ -3,7 +3,7 @@
     "description": "Leadminnow Backend API",
     "type": "project",
     "require": {
-        "php": ">=8.0",
+        "php": "^8.2",
         "ext-pdo": "*",
         "ext-json": "*",
         "vlucas/phpdotenv": "^5.5",
@@ -18,5 +18,10 @@
         "post-install-cmd": [
             "php init_db.php"
         ]
+    },
+    "config": {
+        "platform": {
+            "php": "8.2"
+        }
     }
 } 
