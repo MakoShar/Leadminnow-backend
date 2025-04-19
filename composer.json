@@ -14,11 +14,6 @@
             "App\\": "src/"
         }
     },
-    "scripts": {
-        "post-install-cmd": [
-            "php init_db.php"
-        ]
-    },
     "config": {
         "platform": {
             "php": "8.2"

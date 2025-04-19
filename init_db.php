@@ -1,4 +1,9 @@
 <?php
+// Skip database initialization during composer install
+if (isset($argv[0]) && strpos($argv[0], 'composer') !== false) {
+    exit(0);
+}
+
 require_once 'config.php';
 
 try {

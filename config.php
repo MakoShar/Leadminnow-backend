@@ -1,15 +1,19 @@
 <?php
 // Load environment variables
 require_once __DIR__ . '/vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+
+// Try to load .env file if it exists, otherwise use getenv()
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+}
 
 // Database configuration using environment variables
-$db_host = $_ENV['MYSQLHOST'] ?? 'localhost';
-$db_port = $_ENV['MYSQLPORT'] ?? '3306';
-$db_name = $_ENV['MYSQLDATABASE'] ?? 'leadminnow';
-$db_user = $_ENV['MYSQLUSER'] ?? 'root';
-$db_password = $_ENV['MYSQLPASSWORD'] ?? '';
+$db_host = $_ENV['MYSQLHOST'] ?? getenv('MYSQLHOST') ?? 'localhost';
+$db_port = $_ENV['MYSQLPORT'] ?? getenv('MYSQLPORT') ?? '3306';
+$db_name = $_ENV['MYSQLDATABASE'] ?? getenv('MYSQLDATABASE') ?? 'leadminnow';
+$db_user = $_ENV['MYSQLUSER'] ?? getenv('MYSQLUSER') ?? 'root';
+$db_password = $_ENV['MYSQLPASSWORD'] ?? getenv('MYSQLPASSWORD') ?? '';
 
 // Storage configuration
 define('DATA_DIR', 'data');
@@ -17,8 +21,8 @@ define('SUBMISSIONS_FILE', DATA_DIR . '/submissions.json');
 define('LOG_FILE', 'logs/form_submissions.log');
 
 // Email configuration
-define('ADMIN_EMAIL', $_ENV['ADMIN_EMAIL'] ?? 'aaditya@leadminnow.com');
-define('FROM_EMAIL', $_ENV['FROM_EMAIL'] ?? 'noreply@leadminnow.com');
+define('ADMIN_EMAIL', $_ENV['ADMIN_EMAIL'] ?? getenv('ADMIN_EMAIL') ?? 'aaditya@leadminnow.com');
+define('FROM_EMAIL', $_ENV['FROM_EMAIL'] ?? getenv('FROM_EMAIL') ?? 'noreply@leadminnow.com');
 
 // Create necessary directories if they don't exist
 if (!file_exists(DATA_DIR)) {
