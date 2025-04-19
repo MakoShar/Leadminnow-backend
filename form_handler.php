@@ -3,10 +3,8 @@ require_once 'config.php';
 
 // Set CORS headers
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Max-Age: 86400'); // 24 hours cache
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json');
 
 // Handle preflight requests
@@ -35,6 +33,11 @@ try {
     $message = filter_var($data['message'] ?? '', FILTER_SANITIZE_STRING);
     $source = filter_var($data['source'] ?? 'website', FILTER_SANITIZE_STRING);
 
+    // Basic validation
+    if (empty($name) || empty($email) || empty($phone)) {
+        throw new Exception('Please fill in all required fields');
+    }
+
     // Validate email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         throw new Exception('Invalid email format');
@@ -60,6 +63,7 @@ try {
     ]);
 
 } catch (Exception $e) {
+    error_log("Form submission error: " . $e->getMessage());
     http_response_code(400);
     echo json_encode([
         'success' => false,
