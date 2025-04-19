@@ -1,0 +1,27 @@
+# Dependencies
+/vendor/
+
+# Environment files
+.env
+.env.*
+
+# Logs
+/logs/*
+*.log
+
+# Data files
+/data/*
+!data/.gitkeep
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Cache
+*.cache 
