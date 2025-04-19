@@ -4,7 +4,7 @@
     "builder": "NIXPACKS",
     "buildCommand": "composer install --no-dev --optimize-autoloader",
     "nixpacksPlan": {
-      "providers": ["php82"]
+      "providers": ["php"]
     }
   },
   "deploy": {
